@@ -3,7 +3,9 @@
     public class Matrix
     {
         // TODO : ajouter tous les attributs que vous jugerez pertinents 
-
+        private int nbRows;
+        private int nbColumns;
+        private float defaultValue;
 
         /* Crée une matrice de dimensions `nbRows` x `nbColums`.
          * Toutes les cases de cette matrice sont remplies avec `defaultValue`.
@@ -18,7 +20,7 @@
         // Lecture seule
         public float DefaultValue
         {
-            get; // TODO : implémenter
+            get { return this.defaultValue; } // TODO : implémenter
                  // pas de set
         }
 
@@ -26,7 +28,7 @@
         // Lecture seule
         public int NbRows
         {
-            get; // TODO : implémenter
+            get { return this.nbRows; } // TODO : implémenter
                  // pas de set
         }
 
@@ -34,7 +36,7 @@
         // Lecture seule
         public int NbColumns
         {
-            get; // TODO : implémenter
+            get { return this.nbColumns; } // TODO : implémenter
                  // pas de set
         }
 
