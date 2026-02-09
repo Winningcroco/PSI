@@ -6,6 +6,7 @@
         private int nbRows;
         private int nbColumns;
         private float defaultValue;
+        private List<List<float>> matrice;
 
         /* Crée une matrice de dimensions `nbRows` x `nbColums`.
          * Toutes les cases de cette matrice sont remplies avec `defaultValue`.
@@ -18,6 +19,12 @@
 
         // Propriété : valeur par défaut utilisée pour remplir les nouvelles cases
         // Lecture seule
+        public List<List<float>> Matrice
+        {
+            get { return this.matrice; }
+            set { this.matrice = value; }
+        }
+
         public float DefaultValue
         {
             get { return this.defaultValue; } // TODO : implémenter
