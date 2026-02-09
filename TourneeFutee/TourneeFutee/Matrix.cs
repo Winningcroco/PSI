@@ -2,7 +2,7 @@
 {
     public class Matrix
     {
-        // TODO : ajouter tous les attributs que vous jugerez pertinents 
+        
         private int nbRows;
         private int nbColumns;
         private float defaultValue;
@@ -12,9 +12,33 @@
          * Toutes les cases de cette matrice sont remplies avec `defaultValue`.
          * Lève une ArgumentOutOfRangeException si une des dimensions est négative
          */
-        public Matrix(int nbRows = 0, int nbColumns = 0, float defaultValue = 0)
+        public Matrix(int nbRows=0, int nbColumns = 0, float defaultValue=0)
         {
-            // TODO : implémenter
+            if (nbRows < 0 )
+            {
+                throw new ArgumentOutOfRangeException(nameof(nbRows));
+            }
+            if (nbColumns < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(nbColumns));
+            }
+            this.nbRows = nbRows;
+            this.nbColumns = nbColumns;
+            this.defaultValue = defaultValue;
+            this.matrice = new List<List<float>>();
+            if (nbColumns > 0 && nbRows>0)
+            {
+                for (int j = 0; j < nbColumns; j++)
+                {
+                    List<float> Column = new List<float>();
+                    for (int i = 0; i < nbRows; i++)
+                    {
+                        Column.Add(defaultValue);
+                    }
+                    matrice.Add(Column);
+                }
+            }
+            
         }
 
         // Propriété : valeur par défaut utilisée pour remplir les nouvelles cases
@@ -27,7 +51,7 @@
 
         public float DefaultValue
         {
-            get { return this.defaultValue; } // TODO : implémenter
+            get { return this.defaultValue; }
                  // pas de set
         }
 
@@ -35,7 +59,7 @@
         // Lecture seule
         public int NbRows
         {
-            get { return this.nbRows; } // TODO : implémenter
+            get { return this.nbRows; }
                  // pas de set
         }
 
@@ -43,7 +67,7 @@
         // Lecture seule
         public int NbColumns
         {
-            get { return this.nbColumns; } // TODO : implémenter
+            get { return this.nbColumns; }
                  // pas de set
         }
 
