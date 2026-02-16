@@ -82,10 +82,12 @@
             {
                 throw new ArgumentOutOfRangeException(nameof(i), "Indice hors limites");
             }
-            foreach (var column in matrice)
+            List<float> Defaut = new List<float>();
+            for (int x = 0; x < this.nbColumns; x++)
             {
-                column.Insert(i, defaultValue);
+                Defaut.Add(defaultValue);
             }
+            matrice.Insert(i, Defaut);
             nbRows++;
         }
 
@@ -100,19 +102,11 @@
             {
                 throw new ArgumentOutOfRangeException(nameof(j), "Indice hors limites");
             }
-            List<float> Defaut = new List<float>();
-            for (int x = 0; x < this.nbColumns; x++)
+            foreach (var row in matrice)
             {
-                Defaut.Add(defaultValue);
+                row.Insert(j, defaultValue);
             }
-            if (j == nbColumns)
-            {
-                this.matrice.Add(Defaut);
-            }
-            else
-            {
-                this.matrice.Insert(j, Defaut);
-            }
+            nbColumns++;
         }
 
         // Supprime la ligne à l'indice `i`. Décale les lignes suivantes vers le haut.
