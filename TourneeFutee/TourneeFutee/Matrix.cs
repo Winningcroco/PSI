@@ -80,7 +80,7 @@
         {
             if (i < 0 || i > nbRows)
             {
-                throw new ArgumentOutOfRangeException(nameof(i));
+                throw new ArgumentOutOfRangeException(nameof(i), "Indice hors limites");
             }
             foreach (var column in matrice)
             {
@@ -177,7 +177,10 @@
                 throw new ArgumentOutOfRangeException(nameof(j));
             }
             // TODO : implémenter
-            matrice[i][j] = v;
+            else
+            {
+                matrice[i][j] = v;
+            }
         }
 
         // Affiche la matrice
