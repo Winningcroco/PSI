@@ -78,23 +78,15 @@
          */
         public void AddRow(int i)
         {
-            if (i < 0)
+            if (i < 0 || i > nbRows)
             {
-                throw new ArgumentOutOfRangeException(nameof(i), "Indice hors limites");
+                throw new ArgumentOutOfRangeException(nameof(i));
             }
-            List<float> Defaut = new List<float>();
-            for(int x = 0; x < this.nbColumns; x++)
+            foreach (var column in matrice)
             {
-                Defaut[x] = defaultValue;
+                column.Insert(i, defaultValue);
             }
-            if (i == nbRows)
-            {
-                this.matrice.Add(Defaut);
-            }
-            else
-            {
-                this.matrice.Insert(i, Defaut);
-            }
+            nbRows++;
         }
 
         /* Insère une colonne à l'indice `j`. Décale les colonnes suivantes vers la droite.
@@ -104,7 +96,23 @@
          */
         public void AddColumn(int j)
         {
-            // TODO : implémenter
+            if (j < 0 || j > nbColumns)
+            {
+                throw new ArgumentOutOfRangeException(nameof(j), "Indice hors limites");
+            }
+            List<float> Defaut = new List<float>();
+            for (int x = 0; x < this.nbColumns; x++)
+            {
+                Defaut.Add(defaultValue);
+            }
+            if (j == nbColumns)
+            {
+                this.matrice.Add(Defaut);
+            }
+            else
+            {
+                this.matrice.Insert(j, Defaut);
+            }
         }
 
         // Supprime la ligne à l'indice `i`. Décale les lignes suivantes vers le haut.
@@ -158,13 +166,20 @@
         // Affiche la matrice
         public void Print()
         {
-            // TODO : implémenter
+            foreach(List<float> floats in this.matrice)
+            {
+                AfficherListe(floats);
+            }
         }
 
-
+        public void AfficherListe(List<float> liste)
+        {
+            foreach (float f in liste)
+            {
+                Console.WriteLine(f);
+            }
+        }
         // TODO : ajouter toutes les méthodes que vous jugerez pertinentes 
 
     }
-
-
 }
