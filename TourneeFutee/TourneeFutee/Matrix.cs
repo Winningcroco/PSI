@@ -28,14 +28,14 @@
             this.matrice = new List<List<float>>();
             if (nbColumns > 0 && nbRows>0)
             {
-                for (int j = 0; j < nbColumns; j++)
+                for (int i = 0; i < nbRows; i++)
                 {
-                    List<float> Column = new List<float>();
-                    for (int i = 0; i < nbRows; i++)
+                    List<float> row = new List<float>();
+                    for (int j = 0; j < nbColumns; j++)
                     {
-                        Column.Add(defaultValue);
+                        row.Add(defaultValue);
                     }
-                    matrice.Add(Column);
+                    matrice.Add(row);
                 }
             }
             
@@ -156,12 +156,14 @@
             {
                 throw new ArgumentOutOfRangeException(nameof(i));
             }
-            if (j < 0 || j >= this.nbColumns)
+            else if (j < 0 || j >= this.nbColumns)
             {
                 throw new ArgumentOutOfRangeException(nameof(j));
             }
-            // TODO : implémenter
-            return matrice[i][j];
+            else
+            {
+                return matrice[i][j];
+            }         
         }
 
         // Affecte la valeur à la ligne `i` et colonne `j` à `v`
@@ -172,15 +174,15 @@
             {
                 throw new ArgumentOutOfRangeException(nameof(i));
             }
-            if (j < 0 || j >= this.nbColumns)
+            else if (j < 0 || j >= this.nbColumns)
             {
                 throw new ArgumentOutOfRangeException(nameof(j));
             }
-            // TODO : implémenter
             else
             {
                 matrice[i][j] = v;
             }
+                
         }
 
         // Affiche la matrice
