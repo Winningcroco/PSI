@@ -83,13 +83,13 @@
                 throw new ArgumentOutOfRangeException(nameof(i), "Indice hors limites");
             }
             List<float> Defaut = new List<float>();
-            for (int x = 0; x < this.nbColumns; x++)
+            for (int x = 0; x < this.nbColumns; x++) 
             {
                 Defaut.Add(defaultValue);
             }
             matrice.Insert(i, Defaut);
             nbRows++;
-        }
+            }
 
         /* Insère une colonne à l'indice `j`. Décale les colonnes suivantes vers la droite.
          * Toutes les cases de la nouvelle ligne contiennent DefaultValue.
