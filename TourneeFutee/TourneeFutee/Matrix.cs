@@ -76,19 +76,19 @@
          * Si `i` = NbRows, insère une ligne en fin de matrice
          * Lève une ArgumentOutOfRangeException si `i` est en dehors des indices valides
          */
-        public void AddRow(int i)//--> Pire cas : O(n+m) || Meilleur Cas : O(n)
+        public void AddRow(int i)
         {
-            if (i < 0 || i > nbRows)//--> O(1)
+            if (i < 0 || i > nbRows)
             {
-                throw new ArgumentOutOfRangeException(nameof(i), "Indice hors limites");//--> O(1)
+                throw new ArgumentOutOfRangeException(nameof(i), "Indice hors limites");
             }
-            List<float> Defaut = new List<float>(); //--> O(1) 
-            for (int x = 0; x < this.nbColumns; x++) //--> O(n) 
+            List<float> Defaut = new List<float>();
+            for (int x = 0; x < this.nbColumns; x++) 
             {
-                Defaut.Add(defaultValue);//--> O(1)
+                Defaut.Add(defaultValue);
             }
-            matrice.Insert(i, Defaut); //--> Pire Cas (Insertion debut/millieu) O(m) || Meilleur Cas (Insertion fin) : O(1)
-            nbRows++; //--> O(1)
+            matrice.Insert(i, Defaut);
+            nbRows++;
             }
 
         /* Insère une colonne à l'indice `j`. Décale les colonnes suivantes vers la droite.
@@ -96,17 +96,17 @@
          * Si `j` = NbColums, insère une colonne en fin de matrice
          * Lève une ArgumentOutOfRangeException si `j` est en dehors des indices valides
          */
-        public void AddColumn(int j)//--> Pire Cas : O(n*m) || Meilleur Cas : O(n)
+        public void AddColumn(int j)
         {
-            if (j < 0 || j > nbColumns)//--> O(1)
+            if (j < 0 || j > nbColumns)
             {
-                throw new ArgumentOutOfRangeException(nameof(j), "Indice hors limites"); //--> O(1)
+                throw new ArgumentOutOfRangeException(nameof(j), "Indice hors limites");
             }
-            foreach (var row in matrice)//O(m)
+            foreach (var row in matrice)
             {
-                row.Insert(j, defaultValue); //--> Pire Cas (Insertion début/millieu) : O(n) || Meilleur Cas (Insertion fin) : O(1)
+                row.Insert(j, defaultValue);
             }
-            nbColumns++;//--> O(1)
+            nbColumns++;
         }
 
         // Supprime la ligne à l'indice `i`. Décale les lignes suivantes vers le haut.
