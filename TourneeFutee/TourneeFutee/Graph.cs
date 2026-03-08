@@ -126,7 +126,19 @@
             List<string> neighborNames = new List<string>();
 
             // TODO : implémenter
+            if (!vertexIndices.TryGetValue(vertexName, out int vertexIndex))
+                throw new ArgumentException("Sommet non trouvé", nameof(vertexName));
+            for (int j = 0; j < order; j++)
+            {
+                float weight = adjacence.GetValue(vertexIndex, j);
 
+                if (weight != noEdgeValue)
+                {
+                    string neighborName = vertexIndices.FirstOrDefault(kvp => kvp.Value == j).Key;
+                    if (neighborName != null)
+                        neighborNames.Add(neighborName);
+                }
+            }
             return neighborNames;
         }
 
