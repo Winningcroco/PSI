@@ -155,8 +155,8 @@
         public void AddEdge(string sourceName, string destinationName, float weight = 1)
         {
             // TODO : implémenter
-            if (!vertexIndices.TryGetValue(sourceName, out int sourceIndex) ||
-                !vertexIndices.TryGetValue(destinationName, out int destIndex))
+            if (vertexIndices.TryGetValue(sourceName, out int sourceIndex) == false||
+                vertexIndices.TryGetValue(destinationName, out int destIndex)==false)
                 throw new ArgumentException("Sommet(s) non trouvé(s)");
             if (adjacence.GetValue(sourceIndex, destIndex) != noEdgeValue)
                 throw new ArgumentException("Arc déjà existant");
@@ -174,8 +174,8 @@
         public void RemoveEdge(string sourceName, string destinationName)
         {
             // TODO : implémenter
-            if (!vertexIndices.TryGetValue(sourceName, out int sourceIndex) ||
-                !vertexIndices.TryGetValue(destinationName, out int destIndex))
+            if (vertexIndices.TryGetValue(sourceName, out int sourceIndex) ==false||
+                vertexIndices.TryGetValue(destinationName, out int destIndex)==false)
                 throw new ArgumentException("Sommet(s) non trouvé(s)");
             if (adjacence.GetValue(sourceIndex, destIndex) == noEdgeValue)
                 throw new ArgumentException("Arc inexistant");
