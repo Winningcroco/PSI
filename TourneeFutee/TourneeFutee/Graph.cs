@@ -166,6 +166,14 @@
         public void RemoveEdge(string sourceName, string destinationName)
         {
             // TODO : implémenter
+            if (!vertexIndices.TryGetValue(sourceName, out int sourceIndex) ||
+                !vertexIndices.TryGetValue(destinationName, out int destIndex))
+                throw new ArgumentException("Sommet(s) non trouvé(s)");
+            if (adjacence.GetValue(sourceIndex, destIndex) == noEdgeValue)
+                throw new ArgumentException("Arc inexistant");
+            adjacence.SetValue(sourceIndex, destIndex, noEdgeValue);
+            if (directed==false)
+                adjacence.SetValue(destIndex, sourceIndex, noEdgeValue);
         }
 
         /* Renvoie le poids de l'arc allant du sommet nommé `sourceName` au sommet nommé `destinationName`
