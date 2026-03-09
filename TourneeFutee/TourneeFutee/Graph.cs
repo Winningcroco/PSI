@@ -126,14 +126,13 @@
         public List<string> GetNeighbors(string vertexName)
         {
             List<string> neighborNames = new List<string>();
-
-            // TODO : implémenter
-            if (!vertexIndices.TryGetValue(vertexName, out int vertexIndex))
+            if (vertexIndices.TryGetValue(vertexName, out int vertexIndex)==false)
+            {
                 throw new ArgumentException("Sommet non trouvé", nameof(vertexName));
+            }
             for (int j = 0; j < order; j++)
             {
                 float weight = adjacence.GetValue(vertexIndex, j);
-
                 if (weight != noEdgeValue)
                 {
                     string neighborName = vertexIndices.FirstOrDefault(kvp => kvp.Value == j).Key;
@@ -154,15 +153,19 @@
          */
         public void AddEdge(string sourceName, string destinationName, float weight = 1)
         {
-            // TODO : implémenter
-            if (!vertexIndices.TryGetValue(sourceName, out int sourceIndex) ||
-                !vertexIndices.TryGetValue(destinationName, out int destIndex))
-                throw new ArgumentException("Sommet(s) non trouvé(s)");
+            if (vertexIndices.TryGetValue(sourceName, out int sourceIndex)==false || vertexIndices.TryGetValue(destinationName, out int destIndex)==false)
+            {
+                throw new ArgumentException("Sommet non trouvé");
+            }   
             if (adjacence.GetValue(sourceIndex, destIndex) != noEdgeValue)
+            {
                 throw new ArgumentException("Arc déjà existant");
+            }    
             adjacence.SetValue(sourceIndex, destIndex, weight);
             if (directed==false)
+            {
                 adjacence.SetValue(destIndex, sourceIndex, weight);
+            }   
         }
 
         /* Supprime l'arc allant du sommet nommé `sourceName` au sommet nommé `destinationName` du graphe
@@ -173,15 +176,19 @@
          */
         public void RemoveEdge(string sourceName, string destinationName)
         {
-            // TODO : implémenter
-            if (!vertexIndices.TryGetValue(sourceName, out int sourceIndex) ||
-                !vertexIndices.TryGetValue(destinationName, out int destIndex))
+            if (vertexIndices.TryGetValue(sourceName, out int sourceIndex)==false ||vertexIndices.TryGetValue(destinationName, out int destIndex)==false)
+            {
                 throw new ArgumentException("Sommet(s) non trouvé(s)");
+            } 
             if (adjacence.GetValue(sourceIndex, destIndex) == noEdgeValue)
+            {
                 throw new ArgumentException("Arc inexistant");
+            }
             adjacence.SetValue(sourceIndex, destIndex, noEdgeValue);
             if (directed==false)
+            {
                 adjacence.SetValue(destIndex, sourceIndex, noEdgeValue);
+            }  
         }
 
         /* Renvoie le poids de l'arc allant du sommet nommé `sourceName` au sommet nommé `destinationName`
