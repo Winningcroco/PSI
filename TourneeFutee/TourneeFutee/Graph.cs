@@ -3,7 +3,7 @@
     public class Graph
     {
 
-        // TODO : ajouter tous les attributs que vous jugerez pertinents 
+
         private bool directed; // graphe orienté ou non
         private int order; // nombre de sommets du graphe (obligatoirement un entier)
         private float noEdgeValue; // poids de l'arc
@@ -33,7 +33,7 @@
         // Lecture seule
         public int Order
         {
-            get { return this.order; }    // TODO : implémenter
+            get { return this.order; }    
                     // pas de set
         }
 
@@ -41,13 +41,13 @@
         // Lecture seule
         public bool Directed
         {
-            get{return this.directed; }   // TODO : implémenter
+            get{return this.directed; }   
                     // pas de set
         }
         public float NoEdgeValue
         {
             get{return this.noEdgeValue; }
-            set{this.noEdgeValue = value; }// Pourrais être supprimé si pas utile
+            set{this.noEdgeValue = value; }// Rmq : Pourrais être supprimé si pas utile
         }
         public Matrix Adajcence
         {
@@ -57,12 +57,12 @@
         public Dictionary<string, int> VertexIndices
         {
             get { return this.vertexIndices; }
-            set{this.vertexIndices = value; }// Pourrais être supprimé si pas utile
+            set{this.vertexIndices = value; }// Rmq : Pourrais être supprimé si pas utile
         }
         public Dictionary<string, float> VertexValues
         {
             get { return this.vertexValues; }
-            set { this.vertexValues = value; }// Pourrais être supprimé si pas utile
+            set { this.vertexValues = value; }// Rmq : Pourrais être supprimé si pas utile
         }
 
 
@@ -73,13 +73,15 @@
         public void AddVertex(string name, float value = 0)
         {
             if (vertexIndices.ContainsKey(name))
-                throw new ArgumentException("A vertex with the same name already exists.", nameof(name));
+            { 
+                throw new ArgumentException("A vertex with the same name already exists.", nameof(name)); 
+            }
             int newIndex = order;
             adjacence.AddRow(newIndex);
             adjacence.AddColumn(newIndex);
             vertexIndices[name] = newIndex;
             vertexValues[name] = value;
-            order++;
+            order=order +1;
         }
 
 
@@ -99,22 +101,24 @@
 
         // Renvoie la valeur du sommet de nom `name`
         // Lève une ArgumentException si le sommet n'a pas été trouvé dans le graphe
-        public float GetVertexValue(string name)
+        public float GetVertexValue(string nomsommet) // O(1)
         {
-            // TODO : implémenter
-            if (!vertexValues.TryGetValue(name, out float value))
-                throw new ArgumentException("Sommet non trouvé", nameof(name));
-            return value;
+            if (this.vertexValues.ContainsKey(nomsommet)==false) // O(1)
+            {
+                throw new ArgumentException("Le sommet n'existe pas dans le graphe."); // O(1)
+            }
+            return this.vertexValues[nomsommet];// O(1)
         }
 
         // Affecte la valeur du sommet de nom `name` à `value`
         // Lève une ArgumentException si le sommet n'a pas été trouvé dans le graphe
-        public void SetVertexValue(string name, float value)
+        public void SetVertexValue(string nomsommet, float valeur) // O(1)
         {
-            // TODO : implémenter
-            if (!vertexValues.TryGetValue(name, out _))
-                throw new ArgumentException("Sommet non trouvé", nameof(name));
-            vertexValues[name] = value;
+            if (this.vertexValues.ContainsKey(nomsommet)==false) // O(1)
+            {
+                throw new ArgumentException("Le sommet n'existe pas dans le graphe."); // O(1)
+            }
+            this.vertexValues[nomsommet] = valeur; // O(1)
         }
 
 
@@ -124,14 +128,13 @@
         public List<string> GetNeighbors(string vertexName)
         {
             List<string> neighborNames = new List<string>();
-
-            // TODO : implémenter
-            if (!vertexIndices.TryGetValue(vertexName, out int vertexIndex))
+            if (vertexIndices.TryGetValue(vertexName, out int vertexIndex)==false)
+            {
                 throw new ArgumentException("Sommet non trouvé", nameof(vertexName));
+            }
             for (int j = 0; j < order; j++)
             {
                 float weight = adjacence.GetValue(vertexIndex, j);
-
                 if (weight != noEdgeValue)
                 {
                     string neighborName = vertexIndices.FirstOrDefault(kvp => kvp.Value == j).Key;
@@ -209,8 +212,20 @@
          */
         public float GetEdgeWeight(string sourceName, string destinationName)
         {
-            // TODO : implémenter
-            return 0.0f;
+            if (this.vertexIndices.TryGetValue(sourceName, out int sourceIndex)==false)
+            {
+                throw new ArgumentException("Le sommet source n'existe pas.", nameof(sourceName));
+            }
+            if (this.vertexIndices.TryGetValue(destinationName, out int destIndex)==false)
+            {
+                throw new ArgumentException("Le sommet destination n'existe pas.", nameof(destinationName));
+            }
+            float weight = this.adjacence.GetValue(sourceIndex, destIndex);
+            if (weight == this.noEdgeValue)
+            {
+                throw new ArgumentException("L'arc n'existe pas entre ces deux sommets.");
+            }
+            return weight;
         }
 
         /* Affecte le poids l'arc allant du sommet nommé `sourceName` au sommet nommé `destinationName` à `weight` 
@@ -219,11 +234,21 @@
          */
         public void SetEdgeWeight(string sourceName, string destinationName, float weight)
         {
-            // TODO : implémenter
+            if (this.vertexIndices.TryGetValue(sourceName, out int sourceIndex)==false)
+            {
+                throw new ArgumentException("Le sommet source n'existe pas.", nameof(sourceName));
+            }
+            if (this.vertexIndices.TryGetValue(destinationName, out int destIndex)==false)
+            {
+                throw new ArgumentException("Le sommet destination n'existe pas.", nameof(destinationName));
+            }
+            this.adjacence.SetValue(sourceIndex, destIndex, weight);
+            if (this.directed==false)
+            {
+                this.adjacence.SetValue(destIndex, sourceIndex, weight);
+            }
         }
-
         // TODO : ajouter toutes les méthodes que vous jugerez pertinentes 
-
     }
 
 
