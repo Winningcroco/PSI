@@ -130,18 +130,28 @@
         public List<string> GetNeighbors(string vertexName)
         {
             List<string> neighborNames = new List<string>();
-            if (vertexIndices.TryGetValue(vertexName, out int vertexIndex)==false)
+            int vertexIndex;
+            try
             {
-                throw new ArgumentException("Sommet non trouvé", nameof(vertexName));
+                vertexIndex = vertexIndices[vertexName];
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new ArgumentException("Sommet non trouvé");
             }
             for (int j = 0; j < order; j++)
             {
                 float weight = adjacence.GetValue(vertexIndex, j);
                 if (weight != noEdgeValue)
                 {
-                    string neighborName = vertexIndices.FirstOrDefault(kvp => kvp.Value == j).Key;
-                    if (neighborName != null)
-                        neighborNames.Add(neighborName);
+                    foreach (var i in vertexIndices)
+                    {
+                        if (i.Value == j)
+                        {
+                            neighborNames.Add(i.Key);
+                            break;
+                        }
+                    }
                 }
             }
             return neighborNames;
