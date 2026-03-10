@@ -72,16 +72,16 @@
         // Lève une ArgumentException s'il existe déjà un sommet avec le même nom dans le graphe
         public void AddVertex(string name, float value = 0)
         {
-            if (vertexIndices.ContainsKey(name))
+            if (vertexIndices.ContainsKey(name)==true)
             { 
-                throw new ArgumentException("A vertex with the same name already exists.", nameof(name)); 
+                throw new ArgumentException("Un sommet avec le même nom existe déja.", nameof(name)); 
             }
             int newIndex = order;
             adjacence.AddRow(newIndex);
             adjacence.AddColumn(newIndex);
             vertexIndices[name] = newIndex;
             vertexValues[name] = value;
-            order=order +1;
+            order++;
         }
 
 
@@ -90,8 +90,10 @@
         public void RemoveVertex(string name)
         {
             // TODO : implémenter
-            if (!vertexIndices.TryGetValue(name, out int index))
+            if (vertexIndices.TryGetValue(name, out int index)==false)
+            {
                 throw new ArgumentException("Sommet non trouvé", nameof(name));
+            }   
             adjacence.RemoveRow(index);  
             adjacence.RemoveColumn(index); 
             vertexIndices.Remove(name);
