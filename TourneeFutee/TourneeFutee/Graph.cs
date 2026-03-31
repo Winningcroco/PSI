@@ -262,6 +262,4 @@
         }
         // TODO : ajouter toutes les méthodes que vous jugerez pertinentes 
     }
-
-
 }
