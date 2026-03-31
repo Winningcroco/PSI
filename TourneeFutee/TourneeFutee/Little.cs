@@ -4,7 +4,10 @@
     // en utilisant l'algorithme de Little
     public class Little
     {
-        // TODO : ajouter tous les attributs que vous jugerez pertinents 
+        private Graph graph; // graphe modélisant le problème de voyageur de commerce à résoudre
+        private Tour bestTour; // meilleure tournée trouvée jusqu'à présent
+        private Matrix costMatrix; // matrice de coûts utilisée pour les calculs intermédiaires
+        public int NbCities; // nombre de villes du problème
 
         // Instancie le planificateur en spécifiant le graphe modélisant un problème de voyageur de commerce
         public Little(Graph graph)
@@ -27,8 +30,58 @@
         // Après appel à cette méthode, la matrice `m` est *modifiée*.
         public static float ReduceMatrix(Matrix m)
         {
-            // TODO : implémenter
-            return 0.0f;
+            float somme = 0;
+            for (int i = 0; i < m.NbRows; i++)
+            {
+                float minRow = float.MaxValue;
+                for (int j = 0; j < m.NbColumns; j++)
+                {
+                    float val = m.GetValue(i, j);
+                    if (val < minRow)
+                    {
+                        minRow = val;
+                    }
+                }
+                if (minRow > 0 && minRow < float.MaxValue)
+                {
+                    somme += minRow;
+                    for (int j = 0; j < m.NbColumns; j++)
+                    {
+                        float val = m.GetValue(i, j);
+                        if (val < float.PositiveInfinity)
+                        {
+                            m.SetValue(i, j, val - minRow);
+                        }
+                    }
+                }
+            }
+
+            for (int j = 0; j < m.NbColumns; j++)
+            {
+                float minCol = float.MaxValue;
+                for (int i = 0; i < m.NbRows; i++)
+                {
+                    float val = m.GetValue(i, j);
+                    if (val < minCol)
+                    {
+                        minCol = val;
+                    }
+                }
+                if (minCol > 0 && minCol < float.MaxValue)
+                {
+                    somme += minCol;
+                    for (int i = 0; i < m.NbRows; i++)
+                    {
+                        float val = m.GetValue(i, j);
+                        if (val < float.PositiveInfinity)
+                        {
+                            m.SetValue(i, j, val - minCol);
+                        }
+                    }
+                }
+            }
+
+            return somme;
         }
 
         // Renvoie le regret de valeur maximale dans la matrice de coûts `m` sous la forme d'un tuple `(int i, int j, float value)`
