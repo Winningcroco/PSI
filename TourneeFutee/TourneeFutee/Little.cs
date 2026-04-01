@@ -40,6 +40,7 @@
         {
             // TODO : implémenter
             return new Tour();
+            //!!!!!!!Ajouter une fonction recursif soit cette fonction mais mauvaise pratique soit une fonction auxiliaire pour faire le travail de recursivité (bonne pratique) c'est Houssam qui l'a écrit
         }
 
         // --- Méthodes utilitaires réalisant des étapes de l'algorithme de Little
@@ -161,9 +162,35 @@
          */
         public static bool IsForbiddenSegment((string source, string destination) segment, List<(string source, string destination)> includedSegments, int nbCities)
         {
-
-            // TODO : implémenter
-            return false;   
+            string villededépart = segment.destination;
+            int taillechaine = 1;
+            bool continu = true;
+            while (continu)
+            {
+                if (villededépart == segment.source)
+                {
+                    if (taillechaine < nbCities)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                continu = false;
+                foreach (var s in includedSegments)
+                {
+                    if (s.source == villededépart)
+                    {
+                        villededépart = s.destination;
+                        taillechaine++;
+                        continu = true;
+                        break;
+                    }
+                }
+            }
+            return false;
         }
 
         // TODO : ajouter toutes les méthodes que vous jugerez pertinentes 
