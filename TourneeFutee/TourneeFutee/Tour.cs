@@ -8,11 +8,25 @@ namespace TourneeFutee
         // TODO : ajouter tous les attributs que vous jugerez pertinents 
         private float cost; // coût total de la tournée
         private List<(string source, string destination)> segments; // liste des trajets de la tournée
+        private List<string> vertices;// séquence ordonnée des villes (pour la persistance)
 
         public Tour()
         {
-            cost = float.PositiveInfinity;
-            segments = new List<(string source, string destination)>();
+            this.cost = float.PositiveInfinity;
+            this.segments = new List<(string source, string destination)>();
+            this.vertices = new List<string>();
+        }
+        public Tour(List<string> vertices,float cost)
+        {
+            this.cost = cost;
+            this.vertices = new List<string>(vertices);
+            this.segments = new List<(string source, string destination)>();
+            for (int i = 0; i < vertices.Count - 1; i++)
+            {
+                string src = vertices[i];
+                string dst = vertices[i + 1];
+                this.segments.Add((src, dst));
+            }
         }
         // propriétés
 
@@ -28,6 +42,10 @@ namespace TourneeFutee
         public int NbSegments
         {
             get { return this.segments.Count; }  // TODO : implémenter
+        }
+        public List<string> Vertices
+        {
+            get { return this.vertices; }
         }
 
 

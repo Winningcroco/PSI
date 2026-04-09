@@ -39,7 +39,20 @@ namespace TourneeFutee
           // TODO : initialiser et ouvrir la connexion à la base de données
         // Exemple :
             _connectionString = $"server={serverIp};database={dbname};uid={user};pwd={pwd};";
-
+            MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
+            {
+                connection.Open();
+                Console.WriteLine("Connected to Tournee Futee Database!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                connection.Close(); 
+            }
             // TODO : tester la connexion dès la construction
             //        (ouvrir puis fermer une connexion pour valider les paramètres)
             throw new NotImplementedException("Constructeur non implémenté.");
