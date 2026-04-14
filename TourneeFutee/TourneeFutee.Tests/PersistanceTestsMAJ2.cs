@@ -166,7 +166,7 @@ namespace TourneeFutee.Tests
             foreach (string name in new[] { "X", "Y", "Z" })
             {
                
-                Assert.IsTrue(loaded.ContainsVertex(name),
+                Assert.IsTrue(loaded.ContainsKey(name),
                     $"Le sommet '{name}' doit exister dans le graphe rechargé.");
                 Assert.AreEqual(
                     original.GetVertexValue(name), loaded.GetVertexValue(name), 0.001f,
@@ -180,8 +180,8 @@ namespace TourneeFutee.Tests
 
             // Vérifier que le graphe rechargé est non orienté
             // FIX : IsOriented -> Directed
-            Assert.AreEqual(original.directed, loaded.directed,
-                "La propriété directed doit être identique.");
+            Assert.AreEqual(original.Directed, loaded.Directed,
+                "La propriété Directed doit être identique.");
         }
 
         // ─────────────────────────────────────────────────────────────────────
@@ -209,7 +209,7 @@ namespace TourneeFutee.Tests
             Assert.AreEqual(2f,  loaded.GetEdgeWeight("E", "D"), 0.001f, "Poids E->D incorrect.");
             Assert.AreEqual(4f,  loaded.GetEdgeWeight("E", "F"), 0.001f, "Poids E->F incorrect.");
 
-            Assert.IsTrue(loaded.directed,
+            Assert.IsTrue(loaded.Directed,
                 "Le graphe rechargé doit être orienté.");
         }
 
