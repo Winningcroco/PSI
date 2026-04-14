@@ -166,7 +166,7 @@ namespace TourneeFutee.Tests
             foreach (string name in new[] { "X", "Y", "Z" })
             {
                
-                Assert.IsTrue(loaded.ContainsKey(name),
+                Assert.IsTrue(loaded.ContainsVertex(name),
                     $"Le sommet '{name}' doit exister dans le graphe rechargé.");
                 Assert.AreEqual(
                     original.GetVertexValue(name), loaded.GetVertexValue(name), 0.001f,
